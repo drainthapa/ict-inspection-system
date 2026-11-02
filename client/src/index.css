@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+    font-feature-settings: 'tnum' 1; /* tabular numbers for counts, IDs, costs */
+  }
+  /* Visible keyboard focus everywhere */
+  :focus-visible { @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white; }
+  /* 16px inputs stop iOS Safari from zooming on focus */
+  input, select, textarea { font-size: 16px; }
+  @media (min-width: 768px) { input, select, textarea { font-size: 0.9375rem; } }
+}
+
+@layer components {
+  .card { @apply rounded-xl border border-slate-200 bg-white; }
+  .label { @apply mb-1.5 block text-sm font-medium text-slate-700; }
+  .input {
+    @apply block w-full min-h-touch rounded-lg border border-slate-300 bg-white px-3 py-2
+           text-slate-900 placeholder:text-slate-400
+           focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30
+           disabled:bg-slate-100 disabled:text-slate-500;
+  }
+  .input-error { @apply border-red-500 focus:border-red-500 focus:ring-red-500/30; }
+  .field-error { @apply mt-1.5 text-sm text-red-700; }
+  /* Ward number chip: the app's recurring identity mark */
+  .ward-chip {
+    @apply inline-flex h-7 min-w-7 items-center justify-center rounded-md border border-brand-200
+           bg-brand-50 px-1.5 text-xs font-semibold text-brand-800;
+  }
+}
+
+.pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ---------- Print: A4 reports and inspection records ---------- */
+.print-only { display: none; }
+@media print {
+  @page { size: A4 landscape; margin: 12mm; }
+  body { background: #fff; }
+  aside, header.sticky, nav, .no-print, [aria-live] { display: none !important; }
+  main { padding: 0 !important; }
+  .print-only { display: block; }
+  .print-area { border: 0 !important; box-shadow: none !important; }
+  .card { break-inside: avoid; border-color: #cbd5e1; }
+  .report-table thead { display: table-header-group; }
+  .report-table tr { break-inside: avoid; }
+  .report-table thead th { background: #1c3566 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a { color: inherit; text-decoration: none; }
+}
+@media print { .print-area.card { break-inside: auto; } }

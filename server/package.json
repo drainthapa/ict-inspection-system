@@ -1,0 +1,37 @@
+{
+  "name": "ict-inspection-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sainamaina Municipality – ICT Inspection & Maintenance Management System (API)",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "NODE_ENV=production node src/server.js",
+    "db:migrate": "node scripts/migrate.js",
+    "db:seed": "node scripts/seed.js",
+    "db:schema": "node scripts/build-schema.js",
+    "setup:admin": "node scripts/create-admin.js",
+    "setup": "npm run db:migrate && npm run db:seed && npm run setup:admin",
+    "test": "node --test --test-concurrency=1 tests/*.test.js"
+  },
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "cookie-parser": "1.4.7",
+    "cors": "2.8.5",
+    "dotenv": "16.4.5",
+    "exceljs": "4.4.0",
+    "express": "4.21.1",
+    "express-rate-limit": "7.4.1",
+    "express-validator": "7.2.0",
+    "helmet": "8.0.0",
+    "jsonwebtoken": "9.0.2",
+    "morgan": "1.10.0",
+    "multer": "1.4.5-lts.1",
+    "pdfkit": "0.15.0",
+    "pg": "8.13.1"
+  }
+}
